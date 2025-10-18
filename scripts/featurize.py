@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 from pathlib import Path
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -8,7 +9,7 @@ def compute_features(df, mode, output_dir):
     """
     Compute features for Titanic dataset and return paths for:
     1) Feature file
-    2) Target file
+    2) Target file (if present)
     """
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -68,3 +69,25 @@ def compute_features(df, mode, output_dir):
 
     # Return both feature and target paths
     return feature_path, target_path
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Compute Titanic dataset features")
+    parser.add_argument("--input", type=str, required=True, help="Path to preprocessed CSV file")
+    parser.add_argument("--mode", type=str, choices=["train", "test"], required=True, help="Mode: train or test")
+    parser.add_argument("--output", type=str, required=True, help="Directory to save computed features and target")
+    args = parser.parse_args()
+
+    # Load data
+    df = pd.read_csv(args.input)
+
+    # Compute features
+    feature_path, target_path = compute_features(df, args.mode, args.output)
+
+    print(f"[INFO] Feature file path: {feature_path}")
+    if target_path:
+        print(f"[INFO] Target file path: {target_path}")
+
+
+if __name__ == "__main__":
+    main()
