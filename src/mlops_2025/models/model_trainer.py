@@ -12,10 +12,6 @@ class ModelTrainer:
     def _select_model(self, model_name: str):
         if model_name == "logreg":
             return LogisticRegressionModel()
-        elif model_name == "rf":
-            return RandomForestModel()
-        elif model_name == "xgb":
-            return XGBoostModel()
         else:
             raise ValueError(f"Unsupported model type: {model_name}")
 

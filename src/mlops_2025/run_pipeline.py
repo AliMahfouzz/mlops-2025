@@ -1,11 +1,11 @@
 import argparse
 import pandas as pd
 
-from mlops_2025.preprocessing.preprocessor import Preprocessor
-from mlops_2025.features.features_computer import FeatureComputer
-from mlops_2025.models.model_trainer import ModelTrainer
-from mlops_2025.evaluation.evaluator import Evaluator
-from mlops_2025.predictor.predictor import Predictor
+from PreProcess.preprocess import Preprocessor
+from features.features import FeatureComputer
+from models.model_trainer import ModelTrainer
+from evaluation.evaluator import Evaluator
+from predictor.predictor import Predictor
 
 
 def build_parser():
@@ -19,8 +19,8 @@ def run_pipeline(model_name: str):
     # Step 1: Preprocessing
     # -------------------------------
     print("Starting preprocessing...")
-    train = pd.read_csv("data/raw/train.csv")
-    test = pd.read_csv("data/raw/test.csv")
+    train = pd.read_csv("titanic/train.csv")
+    test = pd.read_csv("titanic/test.csv")
 
     preprocessor = Preprocessor()
     processed_df = preprocessor.process(train, test)
